@@ -10,17 +10,19 @@ public class BossOneController : MonoBehaviour {
     public Transform lanceSpawn;
 
     public float phaseTwoTime;
-    public Transform player;
     public float arrowOffset;
 
     public float phaseThreeTime;
     public Transform birdSpawn;
 
     private Vector2 max;
+    private Transform player;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
+        player = GameObject.Find("Player").transform;
 
         StartCoroutine(BossRoutine());
 	}
