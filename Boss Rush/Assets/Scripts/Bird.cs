@@ -24,14 +24,20 @@ public class Bird : Enemy {
 
         if (Vector2.Distance(transform.position, player.transform.position) < 5.0f)
         {
+            
             if (!tracked)
             {
+                movementSpeed = 1f;
                 pivot = transform.position - player.transform.position;
+                transform.parent = player.transform;
                 tracked = true;
             }
+            /*
             pivot = (Quaternion.AngleAxis(rotationSpeed * Time.deltaTime, Vector3.forward) * pivot);
 
-            transform.position = player.transform.position + pivot;
+            transform.position = player.transform.position + pivot;*/
+
+            transform.RotateAround(transform.parent.transform.position, Vector3.forward, rotationSpeed);
         }   
     }
 
