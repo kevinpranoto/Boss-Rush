@@ -19,7 +19,6 @@ public class DestroyWithDelay : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		print("collided");
 		Destroy(gameObject);
 	}
 }

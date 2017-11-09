@@ -629,7 +629,7 @@ Prefab:
     - target: {fileID: 114046183925842866, guid: 706374246d844144e8a8c602aca15715,
         type: 2}
       propertyPath: health
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 706374246d844144e8a8c602aca15715, type: 2}
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2b1bc83a51ef4449b82be82174b030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 100
   attacks:
   - {fileID: 1885829224754046, guid: 8efb0d853d32be345bcca3a9928a6c45, type: 2}
   - {fileID: 1370101777432602, guid: 52319aa4229b6a0469bc287da6bb825e, type: 2}

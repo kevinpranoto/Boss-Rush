@@ -62,4 +62,12 @@ public class BossOneController : MonoBehaviour {
     {
         Instantiate(attacks[2], birdSpawn.position, birdSpawn.rotation);
     }
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		print (col.gameObject.name);
+		if (col.gameObject.name == "LeftBullet(Clone)" || col.gameObject.name == "RightBullet(Clone)") {
+			health -= 5;
+		}
+	}
 }
