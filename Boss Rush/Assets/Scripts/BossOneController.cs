@@ -18,6 +18,8 @@ public class BossOneController : MonoBehaviour {
     private Vector2 max;
     private Transform player;
 
+	public float bulletDamage;
+
     // Use this for initialization
     void Start () {
         max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
@@ -65,9 +67,8 @@ public class BossOneController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		print (col.gameObject.name);
 		if (col.gameObject.name == "LeftBullet(Clone)" || col.gameObject.name == "RightBullet(Clone)") {
-			health -= 5;
+			health -= bulletDamage;
 		}
 	}
 }

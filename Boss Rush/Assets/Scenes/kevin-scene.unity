@@ -631,6 +631,11 @@ Prefab:
       propertyPath: health
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114046183925842866, guid: 706374246d844144e8a8c602aca15715,
+        type: 2}
+      propertyPath: bulletDamage
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 706374246d844144e8a8c602aca15715, type: 2}
   m_IsPrefabParent: 0
@@ -677,6 +682,7 @@ MonoBehaviour:
   arrowOffset: 3
   phaseThreeTime: 3
   birdSpawn: {fileID: 465751969}
+  bulletDamage: 1
 --- !u!61 &1342864657
 BoxCollider2D:
   m_ObjectHideFlags: 0
