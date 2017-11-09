@@ -19,14 +19,18 @@ public class PlayerControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.D))
+		if (Input.GetKey (KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 		{
 			player.transform.position += new Vector3 (0.1f, 0, 0);
+			ChangeFirePos(1);
+			facingRight = true;
 		}
 
-		if (Input.GetKey (KeyCode.A))
+		if (Input.GetKey (KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
 			player.transform.position += new Vector3 (-0.1f, 0, 0);
+			ChangeFirePos(-1);
+			facingRight = false;
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space))
@@ -47,5 +51,9 @@ public class PlayerControls : MonoBehaviour {
 		} else {
 			Instantiate (leftBullet, firePos.position, firePos.rotation);
 		}
+	}
+	void ChangeFirePos(int orientation)
+	{
+		firePos.position = new Vector2 (rb2d.position.x + orientation, firePos.position.y);
 	}
 }
