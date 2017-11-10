@@ -7,9 +7,10 @@ public class PlayerControls : MonoBehaviour {
 	private Transform player;
 	private Rigidbody2D rb2d;
 	public float moveSpeed = 7;
-	public float jumpStrength = 7;
+	public float jumpStrength = 2;
 	public GameObject leftBullet, rightBullet;
 	public Transform firePos;
+	public float jumpLimit = 7;
 	private bool facingRight = true;
 	// Use this for initialization
 	void Start () {
@@ -18,24 +19,26 @@ public class PlayerControls : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		if (Input.GetKey (KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 		{
-			player.transform.position += new Vector3 (0.1f, 0, 0);
+			player.transform.position += new Vector3 (1, 0, 0) * moveSpeed * Time.deltaTime;
 			ChangeFirePos(1);
 			facingRight = true;
 		}
 
 		if (Input.GetKey (KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
-			player.transform.position += new Vector3 (-0.1f, 0, 0);
+			player.transform.position += new Vector3 (-1, 0, 0) * moveSpeed * Time.deltaTime;
 			ChangeFirePos(-1);
 			facingRight = false;
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space))
 		{
-			rb2d.AddForce (new Vector3 (0, 1, 0) * jumpStrength);
+			//player.transform.position += transform.up * jumpStrength * Time.deltaTime;
+			rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
 		}
 
 		if (Input.GetKeyDown (KeyCode.Z)) 
@@ -52,8 +55,9 @@ public class PlayerControls : MonoBehaviour {
 			Instantiate (leftBullet, firePos.position, firePos.rotation);
 		}
 	}
+
 	void ChangeFirePos(int orientation)
 	{
-		firePos.position = new Vector2 (rb2d.position.x + orientation, firePos.position.y);
+		firePos.position = new Vector2 (player.position.x + orientation, firePos.position.y);
 	}
 }
