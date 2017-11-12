@@ -8,7 +8,10 @@ public class PlayerController : PhysicsObjects
 	public float jumpStrength = 7;
 	public float maxSpeed = 7;
 	public float hoverStrength = 7;
-	public GameObject leftBullet, rightBullet;
+    //public GameObject leftBullet, rightBullet;
+
+    public GameObject bullet;
+
 	public Transform firePos;
 	private bool facingRight = true;
 	/*
@@ -28,10 +31,10 @@ public class PlayerController : PhysicsObjects
 
 		move.x = Input.GetAxis ("Horizontal");
 
-		if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.RightArrow)) {
+		if (Input.GetKeyDown (KeyCode.D) || Input.GetKeyDown (KeyCode.RightArrow)) {
 			firePos.position = new Vector2 (rb2d.position.x + 1, firePos.position.y);
 			facingRight = true;
-		} else if (Input.GetKeyDown (KeyCode.D) || Input.GetKeyDown (KeyCode.LeftArrow)) {
+		} else if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.LeftArrow)) {
 			firePos.position = new Vector2 (rb2d.position.x - 1, firePos.position.y);
 			facingRight = false;
 		}
@@ -63,12 +66,16 @@ public class PlayerController : PhysicsObjects
 
 	void Fire()
 	{
+        GameObject newBullet = Instantiate(bullet, firePos.position, firePos.rotation);
+        newBullet.GetComponent<RichardBullet>().right = facingRight;
+
+        /*
 		if (facingRight) {
 			Instantiate (rightBullet, firePos.position, firePos.rotation);
 		} else {
 			Instantiate (leftBullet, firePos.position, firePos.rotation);
-		}
-	}
+		}*/
+    }
 	/*
 	void Update () 
 	{

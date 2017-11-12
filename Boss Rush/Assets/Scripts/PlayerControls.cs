@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour {
-
+    public float health;
 	private Transform player;
 	private Rigidbody2D rb2d;
 	public float moveSpeed = 7;
 	public float jumpStrength = 2;
-	public GameObject leftBullet, rightBullet;
-	public Transform firePos;
+    //public GameObject leftBullet, rightBullet;
+
+    public GameObject bullet;
+
+    public Transform firePos;
 	public float jumpLimit = 7;
 	private bool facingRight = true;
+    private SpriteRenderer sprite;
+
 	// Use this for initialization
 	void Start () {
-		player = GetComponent<Transform> ();
-		rb2d = GetComponent<Rigidbody2D> ();
+		player = GetComponent<Transform>();
+		rb2d = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +31,7 @@ public class PlayerControls : MonoBehaviour {
 		{
 			player.transform.position += new Vector3 (1, 0, 0) * moveSpeed * Time.deltaTime;
 			ChangeFirePos(1);
+            sprite.flipX = false;
 			facingRight = true;
 		}
 
@@ -32,6 +39,7 @@ public class PlayerControls : MonoBehaviour {
 		{
 			player.transform.position += new Vector3 (-1, 0, 0) * moveSpeed * Time.deltaTime;
 			ChangeFirePos(-1);
+            sprite.flipX = true;
 			facingRight = false;
 		}
 
@@ -49,15 +57,24 @@ public class PlayerControls : MonoBehaviour {
 
 	void Fire()
 	{
+        GameObject newBullet = Instantiate(bullet, firePos.position, firePos.rotation);
+        newBullet.GetComponent<RichardBullet>().right = facingRight;
+
+        /*
 		if (facingRight) {
 			Instantiate (rightBullet, firePos.position, firePos.rotation);
 		} else {
 			Instantiate (leftBullet, firePos.position, firePos.rotation);
-		}
-	}
+		}*/
+    }
 
-	void ChangeFirePos(int orientation)
+    void ChangeFirePos(int orientation)
 	{
 		firePos.position = new Vector2 (player.position.x + orientation, firePos.position.y);
 	}
+
+    public void doDamage(float dmg)
+    {
+        health -= dmg;
+    }
 }

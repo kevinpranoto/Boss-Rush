@@ -22,7 +22,7 @@ abstract public class Enemy : MonoBehaviour {
     {
         if (hit.gameObject.CompareTag("Player"))
         {
-            player.GetComponent<PlayerController>().doDamage(damage);
+            player.GetComponent<PlayerControls>().doDamage(damage);
             Destroy(gameObject);
         }
     }   
