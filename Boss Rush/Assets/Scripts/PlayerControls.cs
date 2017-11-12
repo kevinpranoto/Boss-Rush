@@ -11,7 +11,10 @@ public class PlayerControls : MonoBehaviour {
 
     public GameObject bullet;
 
-    public Transform firePos;
+    //public Transform firePos;
+
+    //public Vector3 firePos;
+    
 	public float jumpLimit = 7;
 	private bool facingRight = true;
     private SpriteRenderer sprite;
@@ -32,10 +35,10 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             sprite.flipX = false;
-            ChangeFirePos(1);
+            //ChangeFirePos(1.5f);
             facingRight = true;
 
             move = new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime;
@@ -48,8 +51,8 @@ public class PlayerControls : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
-            ChangeFirePos(-1);
             sprite.flipX = true;
+            //ChangeFirePos(-1.5f);
             facingRight = false;
 
             move = new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime;
@@ -74,7 +77,9 @@ public class PlayerControls : MonoBehaviour {
 
 	void Fire()
 	{
-        GameObject newBullet = Instantiate(bullet, firePos.position, firePos.rotation);
+        Vector3 offset = facingRight ? new Vector3(1.5f, 0f, 0f) : new Vector3(-1.5f, 0f, 0f);
+
+        GameObject newBullet = Instantiate(bullet, transform.position + offset, Quaternion.identity);
         newBullet.GetComponent<RichardBullet>().right = facingRight;
 
         /*
@@ -85,10 +90,11 @@ public class PlayerControls : MonoBehaviour {
 		}*/
     }
 
-    void ChangeFirePos(int orientation)
+    /*void ChangeFirePos(float offset)
 	{
-		firePos.position = new Vector2(transform.position.x + orientation, firePos.position.y);
-	}
+        firePos = new Vector3(transform.position.x + offset, transform.position.y, 0);
+		//firePos.position = new Vector2(transform.position.x + offset, firePos.position.y);
+	}*/
 
     public void doDamage(float dmg)
     {
