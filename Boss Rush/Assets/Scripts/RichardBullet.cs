@@ -28,7 +28,6 @@ public class RichardBullet : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Enemy"))
         {
-            print("hit");
             hit.transform.GetComponent<BossController>().doDamage(damage);
             Destroy(gameObject);
         }

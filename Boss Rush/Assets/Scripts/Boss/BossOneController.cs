@@ -10,15 +10,17 @@ public class BossOneController : BossController {
     public Transform birdSpawn;
 
     private Vector2 max;
-    private Transform player;
+    private Transform playerTrans;
 
 	//public float bulletDamage;
 
     // Use this for initialization
     void Start () {
+        baseStart();
+
         max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        player = GameObject.Find("Player").transform;
+        playerTrans = GameObject.Find("Player").transform;
 
         StartCoroutine(BossRoutine());
 	}
@@ -51,7 +53,7 @@ public class BossOneController : BossController {
 
     void phaseTwo()
     {
-        Instantiate(attacks[1], new Vector3(player.position.x, max.y + arrowOffset, 0), new Quaternion(0, 0, 0, 0));
+        Instantiate(attacks[1], new Vector3(playerTrans.position.x, max.y + arrowOffset, 0), new Quaternion(0, 0, 0, 0));
     }
 
     void phaseThree()

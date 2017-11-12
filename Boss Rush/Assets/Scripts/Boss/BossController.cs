@@ -8,13 +8,26 @@ abstract public class BossController : MonoBehaviour
     public List<GameObject> attacks;
     public List<float> phaseTimes;
 
+    public int damage;
+
+    private GameObject player;
+
     public void baseStart()
     {
-
+        player = GameObject.Find("Player");
     }
 
     public void doDamage(float dmg)
     {
         health -= dmg;
     }
+
+    /*public void OnCollisionEnter2D(Collision2D hit)
+    {
+        if (hit.gameObject.CompareTag("Player"))
+        {
+            print("hit");
+            player.GetComponent<PlayerControls>().doDamage(damage);
+        }
+    }*/
 }

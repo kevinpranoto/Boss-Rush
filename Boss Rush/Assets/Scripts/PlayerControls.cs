@@ -40,8 +40,6 @@ public class PlayerControls : MonoBehaviour {
 
             move = new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime;
 
-            print(transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x);
-
             if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
             {
                 transform.position += move;
