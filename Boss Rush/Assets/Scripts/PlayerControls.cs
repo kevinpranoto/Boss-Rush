@@ -77,4 +77,9 @@ public class PlayerControls : MonoBehaviour {
     {
         health -= dmg;
     }
+
+    public bool isPlayerDead()
+    {
+        return (health <= 0);
+    }
 }
