@@ -13,6 +13,8 @@ public class RichardBullet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GetComponent<SpriteRenderer>().flipX = !right;
+
         direction = right ? 1 : -1;
     }
 

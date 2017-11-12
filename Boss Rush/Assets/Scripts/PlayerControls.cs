@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour {
     public float health;
-	private Transform player;
 	private Rigidbody2D rb2d;
 	public float moveSpeed = 7;
 	public float jumpStrength = 2;
@@ -17,41 +16,61 @@ public class PlayerControls : MonoBehaviour {
 	private bool facingRight = true;
     private SpriteRenderer sprite;
 
+    private Vector2 min;
+    private Vector2 max;
+    private Vector3 move;
+
 	// Use this for initialization
 	void Start () {
-		player = GetComponent<Transform>();
 		rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-	}
+
+        min = Camera.main.ViewportToWorldPoint(new Vector2(0.04f, 0));
+        max = Camera.main.ViewportToWorldPoint(new Vector2(0.96f, 1));
+    }
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKey (KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-		{
-			player.transform.position += new Vector3 (1, 0, 0) * moveSpeed * Time.deltaTime;
-			ChangeFirePos(1);
+		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
             sprite.flipX = false;
-			facingRight = true;
+            ChangeFirePos(1);
+            facingRight = true;
+
+            move = new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime;
+
+            print(transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x);
+
+            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
+            {
+                transform.position += move;
+            }
 		}
 
-		if (Input.GetKey (KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
-			player.transform.position += new Vector3 (-1, 0, 0) * moveSpeed * Time.deltaTime;
-			ChangeFirePos(-1);
+            ChangeFirePos(-1);
             sprite.flipX = true;
-			facingRight = false;
-		}
+            facingRight = false;
 
-		if (Input.GetKeyDown (KeyCode.Space))
+            move = new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime;
+
+            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
+            {
+                transform.position += move;
+            }
+        }
+
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			//player.transform.position += transform.up * jumpStrength * Time.deltaTime;
 			rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
 		}
 
-		if (Input.GetKeyDown (KeyCode.Z)) 
+		if (Input.GetKeyDown(KeyCode.Z)) 
 		{
-			Fire ();
+			Fire();
 		}
 	}
 
@@ -62,20 +81,26 @@ public class PlayerControls : MonoBehaviour {
 
         /*
 		if (facingRight) {
-			Instantiate (rightBullet, firePos.position, firePos.rotation);
+			Instantiate(rightBullet, firePos.position, firePos.rotation);
 		} else {
-			Instantiate (leftBullet, firePos.position, firePos.rotation);
+			Instantiate(leftBullet, firePos.position, firePos.rotation);
 		}*/
     }
 
     void ChangeFirePos(int orientation)
 	{
-		firePos.position = new Vector2 (player.position.x + orientation, firePos.position.y);
+		firePos.position = new Vector2(transform.position.x + orientation, firePos.position.y);
 	}
 
     public void doDamage(float dmg)
     {
         health -= dmg;
+
+        if (health <= 0)
+        {
+            sprite.enabled = false;
+            GetComponent<PlayerControls>().enabled = false;
+        }
     }
 
     public bool isPlayerDead()

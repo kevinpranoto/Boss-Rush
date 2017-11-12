@@ -121,7 +121,7 @@ MonoBehaviour:
   health: 3
   moveSpeed: 7
   jumpStrength: 3
-  bullet: {fileID: 1926404916897986, guid: 16b4ba54b0268d846843def6d8462d87, type: 2}
+  bullet: {fileID: 1064031850279636, guid: 16b4ba54b0268d846843def6d8462d87, type: 2}
   firePos: {fileID: 4244302155032804}
   jumpLimit: 7
 --- !u!212 &212236529660888654
