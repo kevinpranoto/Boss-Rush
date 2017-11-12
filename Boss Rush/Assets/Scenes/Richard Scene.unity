@@ -216,7 +216,17 @@ Prefab:
     - target: {fileID: 50366034339432384, guid: 8ee4b94fb3ece974480dd695792eab9c,
         type: 2}
       propertyPath: m_Constraints
-      value: 5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 70963300997112822, guid: 8ee4b94fb3ece974480dd695792eab9c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000496522974210, guid: 8ee4b94fb3ece974480dd695792eab9c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ee4b94fb3ece974480dd695792eab9c, type: 2}
@@ -1004,6 +1014,7 @@ MonoBehaviour:
   - 4
   - 4
   - 5
+  damage: 0
   lanceSpawn: {fileID: 167506259}
   arrowOffset: 3
   birdSpawn: {fileID: 854960324}
@@ -1021,8 +1032,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 922634890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.03, y: 0.06, z: -0.09765625}
-  m_LocalScale: {x: 3.144064, y: 8.07946, z: 1}
+  m_LocalPosition: {x: 7.03, y: -0.096, z: -0.09765625}
+  m_LocalScale: {x: 3.144064, y: 8.391075, z: 1}
   m_Children:
   - {fileID: 167506259}
   - {fileID: 854960324}

@@ -22,12 +22,11 @@ abstract public class BossController : MonoBehaviour
         health -= dmg;
     }
 
-    /*public void OnCollisionEnter2D(Collision2D hit)
+    public void OnCollisionEnter2D(Collision2D hit)
     {
         if (hit.gameObject.CompareTag("Player"))
         {
-            print("hit");
             player.GetComponent<PlayerControls>().doDamage(damage);
         }
-    }*/
+    }
 }
