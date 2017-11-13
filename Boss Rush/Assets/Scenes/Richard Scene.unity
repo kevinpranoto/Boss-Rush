@@ -1062,9 +1062,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 7
-  jumpStrength: 20
+  jumpStrength: 6
+  fallSpeed: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
   bullet: {fileID: 1064031850279636, guid: 16b4ba54b0268d846843def6d8462d87, type: 2}
-  jumpLimit: 7
 --- !u!50 &1218546533
 Rigidbody2D:
   serializedVersion: 4
@@ -1155,7 +1158,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1218546531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -3.35, z: 0}
+  m_LocalPosition: {x: -0.08, y: -2.69, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1172,7 +1175,7 @@ GameObject:
   - component: {fileID: 1438735358}
   - component: {fileID: 1438735356}
   - component: {fileID: 1438735357}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour {
     public float health;
-	private Rigidbody2D rb2d;
 	public float moveSpeed = 7;
 	public float jumpStrength = 2;
-    //public GameObject leftBullet, rightBullet;
+    //public float jumpLimit = 7;
+    public float fallSpeed = 0.1f;
+    public LayerMask groundLayer;
 
+    //public GameObject leftBullet, rightBullet;
     public GameObject bullet;
 
     //public Transform firePos;
 
-    //public Vector3 firePos;
-    
-	public float jumpLimit = 7;
 	private bool facingRight = true;
+    private bool grounded;
+
     private SpriteRenderer sprite;
+    private Rigidbody2D rb2d;
 
     private Vector2 min;
     private Vector2 max;
     private Vector3 move;
+
+    private RaycastHit2D downRay;
 
 	// Use this for initialization
 	void Start () {
@@ -53,8 +57,9 @@ public class PlayerControls : MonoBehaviour {
 
             if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
             {
-                rb2d.MovePosition(transform.position + move);
+                //rb2d.MovePosition(rb2d.position + move);
                 //transform.position += move;
+                transform.Translate(move);
             }
         }
 
@@ -68,19 +73,28 @@ public class PlayerControls : MonoBehaviour {
 
             if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
             {
-                rb2d.MovePosition(transform.position + move);
+                //rb2d.MovePosition(rb2d.position + move);
                 //transform.position += move;
+                transform.Translate(move);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        grounded = isGrounded();
+
+        if (!grounded)
+        {
+            rb2d.velocity = rb2d.velocity - new Vector2(0, fallSpeed);
+        }
+        else
+        {
+            rb2d.velocity = Vector3.zero;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             //player.transform.position += transform.up * jumpStrength * Time.deltaTime;
             //rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
-            //move = new Vector3(0, 1, 0) * jumpStrength * Time.smoothDeltaTime;
-            //rb2d.MovePosition(transform.position + move);
-            rb2d.velocity = new Vector3(0, jumpStrength);
-            //jumpStrength()
+            rb2d.velocity = new Vector2(0, jumpStrength);
         }
     }
 
@@ -120,5 +134,17 @@ public class PlayerControls : MonoBehaviour {
     public bool isPlayerDead()
     {
         return (health <= 0);
+    }
+
+    bool isGrounded()
+    {
+        downRay = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, groundLayer);
+
+        if (downRay.collider != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
