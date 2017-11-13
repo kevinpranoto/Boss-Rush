@@ -5,9 +5,8 @@ using UnityEngine;
 public class Bird : Enemy {
     public float rotationSpeed;
 
-    private Vector3 pivot;
+    //private Vector3 pivot;
     private bool tracked;
-    private float radius = 5.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -18,9 +17,7 @@ public class Bird : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
-        baseUpdate();
-
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
+        baseUpdate();        
 
         if (Vector2.Distance(transform.position, player.transform.position) < 5.0f)
         {
@@ -28,7 +25,7 @@ public class Bird : Enemy {
             if (!tracked)
             {
                 movementSpeed = 1f;
-                pivot = transform.position - player.transform.position;
+                //pivot = transform.position - player.transform.position;
                 transform.parent = player.transform;
                 tracked = true;
             }
@@ -38,7 +35,10 @@ public class Bird : Enemy {
             transform.position = player.transform.position + pivot;*/
 
             transform.RotateAround(transform.parent.transform.position, Vector3.forward, rotationSpeed);
-        }   
+        } else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
+        }
     }
 
 }

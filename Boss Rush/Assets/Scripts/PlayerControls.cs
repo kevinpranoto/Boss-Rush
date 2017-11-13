@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour {
 	public float jumpStrength = 2;
     public float fallSpeed = 0.1f;
     public float setFlyTimer = 3f;
+    public float setInvincibileTimer = 1f;
 
     public LayerMask groundLayer;
     public LayerMask bossLayer;
@@ -20,8 +21,9 @@ public class PlayerControls : MonoBehaviour {
 	private bool facingRight = true;
     private bool grounded;
     private bool fly = false;
-    private bool jumping = false;
     private float flyTimer;
+    private bool invicible = false;
+    private float invincibleTimer;
 
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
@@ -64,6 +66,8 @@ public class PlayerControls : MonoBehaviour {
         {
             flyTimer -= Time.deltaTime;
         }
+
+        isInvincible();
     }
 
     void FixedUpdate()
@@ -134,29 +138,6 @@ public class PlayerControls : MonoBehaviour {
 		}*/
     }
 
-    /*void ChangeFirePos(float offset)
-	{
-        firePos = new Vector3(transform.position.x + offset, transform.position.y, 0);
-		//firePos.position = new Vector2(transform.position.x + offset, firePos.position.y);
-	}*/
-
-    public void doDamage(float dmg)
-    {
-        health -= dmg;
-
-        if (health <= 0)
-        {
-            sprite.enabled = false;
-            GetComponent<PlayerControls>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
-    }
-
-    public bool isPlayerDead()
-    {
-        return (health <= 0);
-    }
-
     bool isGrounded()
     {
         downRay = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, groundLayer);
@@ -171,6 +152,21 @@ public class PlayerControls : MonoBehaviour {
         return false;
     }
 
+    void isInvincible()
+    {
+        if (invicible)
+        {
+            sprite.enabled = !sprite.enabled;
+            invincibleTimer -= Time.deltaTime;
+
+            if (invincibleTimer <= 0)
+            {
+                sprite.enabled = true;
+                invicible = false;
+            }
+        }
+    }
+
     bool checkBossCollision(float direction)
     {
         horizontalRay = Physics2D.Raycast(transform.position, Vector2.right * direction, 0.8f, bossLayer);
@@ -183,4 +179,32 @@ public class PlayerControls : MonoBehaviour {
         return false;
     }
 
+    /*void ChangeFirePos(float offset)
+	{
+        firePos = new Vector3(transform.position.x + offset, transform.position.y, 0);
+		//firePos.position = new Vector2(transform.position.x + offset, firePos.position.y);
+	}*/
+
+    public void doDamage(float dmg)
+    {
+        if (!invicible)
+        {
+            invincibleTimer = setInvincibileTimer;
+            invicible = true;
+            health -= dmg;
+
+            if (health <= 0)
+            {
+                sprite.enabled = false;
+                rb2d.velocity = Vector2.zero;
+                GetComponent<CapsuleCollider2D>().enabled = false;
+                GetComponent<PlayerControls>().enabled = false;
+            }
+        }
+    }
+
+    public bool isPlayerDead()
+    {
+        return (health <= 0);
+    }
 }
