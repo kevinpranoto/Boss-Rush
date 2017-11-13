@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33497904728364758}
   - component: {fileID: 23885695630232016}
   - component: {fileID: 61460219233211782}
+  - component: {fileID: 50942476623108700}
   - component: {fileID: 114057096781642420}
   m_Layer: 0
   m_Name: Arrow
@@ -84,6 +85,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1370101777432602}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!50 &50942476623108700
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1370101777432602}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61460219233211782
 BoxCollider2D:
   m_ObjectHideFlags: 1

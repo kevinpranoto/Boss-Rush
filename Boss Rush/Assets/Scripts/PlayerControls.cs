@@ -35,47 +35,56 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            sprite.flipX = false;
-            //ChangeFirePos(1.5f);
-            facingRight = true;
-
-            move = new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime;
-
-            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
-            {
-                transform.position += move;
-            }
-		}
-
-		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-		{
-            sprite.flipX = true;
-            //ChangeFirePos(-1.5f);
-            facingRight = false;
-
-            move = new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime;
-
-            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
-            {
-                transform.position += move;
-            }
-        }
-
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			//player.transform.position += transform.up * jumpStrength * Time.deltaTime;
-			rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
-		}
-
 		if (Input.GetKeyDown(KeyCode.Z)) 
 		{
 			Fire();
 		}
 	}
 
-	void Fire()
+    void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            sprite.flipX = false;
+            //ChangeFirePos(1.5f);
+            facingRight = true;
+
+            move = new Vector3(1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
+
+            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
+            {
+                rb2d.MovePosition(transform.position + move);
+                //transform.position += move;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            sprite.flipX = true;
+            //ChangeFirePos(-1.5f);
+            facingRight = false;
+
+            move = new Vector3(-1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
+
+            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
+            {
+                rb2d.MovePosition(transform.position + move);
+                //transform.position += move;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //player.transform.position += transform.up * jumpStrength * Time.deltaTime;
+            //rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
+            //move = new Vector3(0, 1, 0) * jumpStrength * Time.smoothDeltaTime;
+            //rb2d.MovePosition(transform.position + move);
+            rb2d.velocity = new Vector3(0, jumpStrength);
+            //jumpStrength()
+        }
+    }
+
+    void Fire()
 	{
         Vector3 offset = facingRight ? new Vector3(1.5f, 0f, 0f) : new Vector3(-1.5f, 0f, 0f);
 
@@ -104,6 +113,7 @@ public class PlayerControls : MonoBehaviour {
         {
             sprite.enabled = false;
             GetComponent<PlayerControls>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 
