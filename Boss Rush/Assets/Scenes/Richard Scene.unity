@@ -357,7 +357,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 167506259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lance Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +755,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 854960324}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bird Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -896,7 +896,7 @@ GameObject:
   - component: {fileID: 922634895}
   - component: {fileID: 922634896}
   - component: {fileID: 922634892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1067,6 +1067,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  bossLayer:
+    serializedVersion: 2
+    m_Bits: 512
   bullet: {fileID: 1064031850279636, guid: 16b4ba54b0268d846843def6d8462d87, type: 2}
 --- !u!50 &1218546533
 Rigidbody2D:

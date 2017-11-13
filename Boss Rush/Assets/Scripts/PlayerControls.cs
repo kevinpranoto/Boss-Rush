@@ -8,7 +8,9 @@ public class PlayerControls : MonoBehaviour {
 	public float jumpStrength = 2;
     //public float jumpLimit = 7;
     public float fallSpeed = 0.1f;
+
     public LayerMask groundLayer;
+    public LayerMask bossLayer;
 
     //public GameObject leftBullet, rightBullet;
     public GameObject bullet;
@@ -26,6 +28,8 @@ public class PlayerControls : MonoBehaviour {
     private Vector3 move;
 
     private RaycastHit2D downRay;
+    private RaycastHit2D upRay;
+    private RaycastHit2D horizontalRay;
 
 	// Use this for initialization
 	void Start () {
@@ -55,7 +59,7 @@ public class PlayerControls : MonoBehaviour {
 
             move = new Vector3(1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
 
-            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
+            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision(1))
             {
                 //rb2d.MovePosition(rb2d.position + move);
                 //transform.position += move;
@@ -71,7 +75,7 @@ public class PlayerControls : MonoBehaviour {
 
             move = new Vector3(-1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
 
-            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x)
+            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision(-1))
             {
                 //rb2d.MovePosition(rb2d.position + move);
                 //transform.position += move;
@@ -147,4 +151,17 @@ public class PlayerControls : MonoBehaviour {
 
         return false;
     }
+
+    bool checkBossCollision(float direction)
+    {
+        horizontalRay = Physics2D.Raycast(transform.position, Vector2.right * direction, 0.8f, bossLayer);
+
+        if (horizontalRay.collider != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }
