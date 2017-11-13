@@ -6,8 +6,8 @@ public class PlayerControls : MonoBehaviour {
     public float health;
 	public float moveSpeed = 7;
 	public float jumpStrength = 2;
-    //public float jumpLimit = 7;
     public float fallSpeed = 0.1f;
+    public float setFlyTimer = 3f;
 
     public LayerMask groundLayer;
     public LayerMask bossLayer;
@@ -19,6 +19,9 @@ public class PlayerControls : MonoBehaviour {
 
 	private bool facingRight = true;
     private bool grounded;
+    private bool fly = false;
+    private bool jumping = false;
+    private float flyTimer;
 
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
@@ -46,8 +49,22 @@ public class PlayerControls : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Z)) 
 		{
 			Fire();
-		}
-	}
+        }
+
+        if (Input.GetKey(KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
+        {
+            fly = true;
+        }
+        else
+        {
+            fly = false;
+        }
+
+        if (fly)
+        {
+            flyTimer -= Time.deltaTime;
+        }
+    }
 
     void FixedUpdate()
     {
@@ -85,7 +102,7 @@ public class PlayerControls : MonoBehaviour {
 
         grounded = isGrounded();
 
-        if (!grounded)
+        if (!grounded && !fly)
         {
             rb2d.velocity = rb2d.velocity - new Vector2(0, fallSpeed);
         }
@@ -94,7 +111,7 @@ public class PlayerControls : MonoBehaviour {
             rb2d.velocity = Vector3.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKey(KeyCode.Space) && grounded)
         {
             //player.transform.position += transform.up * jumpStrength * Time.deltaTime;
             //rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
@@ -146,6 +163,8 @@ public class PlayerControls : MonoBehaviour {
 
         if (downRay.collider != null)
         {
+            flyTimer = setFlyTimer;
+
             return true;
         }
 

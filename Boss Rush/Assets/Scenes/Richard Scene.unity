@@ -1064,6 +1064,7 @@ MonoBehaviour:
   moveSpeed: 7
   jumpStrength: 6
   fallSpeed: 0.5
+  setFlyTimer: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1071,6 +1072,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   bullet: {fileID: 1064031850279636, guid: 16b4ba54b0268d846843def6d8462d87, type: 2}
+  flyTimer: 0
 --- !u!50 &1218546533
 Rigidbody2D:
   serializedVersion: 4
