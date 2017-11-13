@@ -48,30 +48,7 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.Z)) 
-		{
-			Fire();
-        }
-
-        if (Input.GetKey(KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
-        {
-            fly = true;
-        }
-        else
-        {
-            fly = false;
-        }
-
-        if (fly)
-        {
-            flyTimer -= Time.deltaTime;
-        }
-
-        isInvincible();
-    }
-
-    void FixedUpdate()
-    {
+        // Movement
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             sprite.flipX = false;
@@ -104,6 +81,7 @@ public class PlayerControls : MonoBehaviour {
             }
         }
 
+        // Jumping, Floating, Gravity
         grounded = isGrounded();
 
         if (!grounded && !fly)
@@ -121,6 +99,28 @@ public class PlayerControls : MonoBehaviour {
             //rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
             rb2d.velocity = new Vector2(0, jumpStrength);
         }
+
+        if (Input.GetKey(KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
+        {
+            fly = true;
+        }
+        else
+        {
+            fly = false;
+        }
+
+        if (fly)
+        {
+            flyTimer -= Time.deltaTime;
+        }
+
+        // Firing
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Fire();
+        }
+
+        isInvincible();
     }
 
     void Fire()
