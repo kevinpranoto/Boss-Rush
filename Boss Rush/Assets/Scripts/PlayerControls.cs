@@ -19,6 +19,7 @@ public class PlayerControls : MonoBehaviour {
     //public Transform firePos;
 
 	private bool facingRight = true;
+    private bool aimingUp = false;
     private bool grounded;
     private bool fly = false;
     private float flyTimer;
@@ -125,9 +126,21 @@ public class PlayerControls : MonoBehaviour {
 
     void Fire()
 	{
-        Vector3 offset = facingRight ? new Vector3(1.5f, 0f, 0f) : new Vector3(-1.5f, 0f, 0f);
+        Vector3 offset = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            aimingUp = true;
+            offset = new Vector3(0f, 1.5f, 0f);
+        }
+        else
+        {
+            aimingUp = false;
+            offset = facingRight ? new Vector3(1.5f, 0f, 0f) : new Vector3(-1.5f, 0f, 0f);
+        }
 
         GameObject newBullet = Instantiate(bullet, transform.position + offset, Quaternion.identity);
+        newBullet.GetComponent<RichardBullet>().up = aimingUp;
         newBullet.GetComponent<RichardBullet>().right = facingRight;
 
         /*

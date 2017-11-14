@@ -6,16 +6,24 @@ public class RichardBullet : MonoBehaviour
 {
     public int damage;
     public float movementSpeed;
-    public bool right;
+    public bool up = false;
+    public bool right = true;
     
-    private float direction;
+    private float direction = 1f;
 
     // Use this for initialization
     void Start()
     {
-        GetComponent<SpriteRenderer>().flipX = !right;
+        if (up)
+        {
+            transform.rotation = new Quaternion(0f, 0f, 1f, 1f);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = !right;
 
-        direction = right ? 1 : -1;
+            direction = right ? 1f : -1f;
+        }
     }
 
     // Update is called once per frame
