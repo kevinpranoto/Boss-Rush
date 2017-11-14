@@ -35,10 +35,9 @@ public class Bird : Enemy {
             transform.position = player.transform.position + pivot;*/
 
             transform.RotateAround(transform.parent.transform.position, Vector3.forward, rotationSpeed);
-        } else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
         }
+
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime);
     }
 
 }
