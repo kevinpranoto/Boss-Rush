@@ -34,6 +34,12 @@ public class RichardBullet : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D hit)
     {
+        if (hit.gameObject.CompareTag("Bird"))
+        {
+            hit.transform.GetComponent<Bird>().doDamage(damage);
+            Destroy(gameObject);
+        }
+
         if (hit.gameObject.CompareTag("Enemy"))
         {
             hit.transform.GetComponent<BossController>().doDamage(damage);
