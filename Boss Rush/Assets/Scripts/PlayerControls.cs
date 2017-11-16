@@ -9,6 +9,7 @@ public class PlayerControls : MonoBehaviour {
     public float fallSpeed = 0.1f;
     public float setFlyTimer = 3f;
     public float setInvincibileTimer = 1f;
+	public float setFireTimer = 0.2f;
 
     public LayerMask groundLayer;
     public LayerMask bossLayer;
@@ -25,6 +26,8 @@ public class PlayerControls : MonoBehaviour {
     private float flyTimer;
     private bool invicible = false;
     private float invincibleTimer;
+	private float fireTimer;
+	private bool fire = true;
 
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
@@ -41,7 +44,7 @@ public class PlayerControls : MonoBehaviour {
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-
+		fireTimer = setFireTimer;
         min = Camera.main.ViewportToWorldPoint(new Vector2(0.04f, 0));
         max = Camera.main.ViewportToWorldPoint(new Vector2(0.96f, 1));
     }
@@ -115,10 +118,22 @@ public class PlayerControls : MonoBehaviour {
             flyTimer -= Time.deltaTime;
         }
 
+		if (!fire)
+		{
+			fireTimer -= Time.deltaTime;
+		}
+
+		if (!fire && fireTimer <= 0)
+		{
+			fire = true;
+			fireTimer = setFireTimer;
+		}
+			
         // Firing
-        if (Input.GetKeyDown(KeyCode.Z))
+		if (Input.GetKey(KeyCode.Z) && fire)
         {
             Fire();
+			fire = false;
         }
 
         isInvincible();
