@@ -955,12 +955,14 @@ MonoBehaviour:
   - {fileID: 1992138129860102, guid: 6f518279bbe608042944b7fb1948e8c2, type: 2}
   phaseTimes:
   - 1
-  - 1
+  - 0.7
   - 4
   - 5
   damage: 1
   lanceSpawn: {fileID: 167506259}
-  arrowOffset: 3
+  arrowVerticalOffset: 3
+  phaseTwoPartTwoTime: 0.1
+  setArrowHorizontalOffset: 2.2
   birdSpawn: {fileID: 854960324}
 --- !u!33 &922634893
 MeshFilter:

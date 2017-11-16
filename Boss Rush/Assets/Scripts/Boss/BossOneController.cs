@@ -5,12 +5,15 @@ using UnityEngine;
 public class BossOneController : BossController {
     public Transform lanceSpawn;
 
-    public float arrowOffset;
+    public float arrowVerticalOffset;
+    public float phaseTwoPartTwoTime;
+    public float setArrowHorizontalOffset;
     
     public Transform birdSpawn;
 
     private Vector2 max;
     private Transform playerTrans;
+    private float arrowHorizontalOffset;
 
 	//public float bulletDamage;
 
@@ -35,7 +38,9 @@ public class BossOneController : BossController {
 
         while (health > 30.0f)
         {
-            phaseTwo();
+            phaseTwoPartOne();
+            yield return new WaitForSeconds(phaseTwoPartTwoTime);
+            phaseTwoPartTwo();
             yield return new WaitForSeconds(phaseTimes[1]);
         }
 
@@ -51,9 +56,16 @@ public class BossOneController : BossController {
         Instantiate(attacks[0], lanceSpawn.position, lanceSpawn.rotation);
     }
 
-    void phaseTwo()
+    void phaseTwoPartOne()
     {
-        Instantiate(attacks[1], new Vector3(playerTrans.position.x, max.y + arrowOffset, 0), new Quaternion(0, 0, 0, 0));
+        Instantiate(attacks[1], new Vector3(playerTrans.position.x, max.y + arrowVerticalOffset, 0), new Quaternion(0, 0, 0, 0));
+    }
+
+    void phaseTwoPartTwo()
+    {
+        arrowHorizontalOffset = Random.value >= 0.5f ? setArrowHorizontalOffset : -setArrowHorizontalOffset;
+
+        Instantiate(attacks[1], new Vector3(playerTrans.position.x + arrowHorizontalOffset, max.y + arrowVerticalOffset, 0), new Quaternion(0, 0, 0, 0));
     }
 
     void phaseThree()
