@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Title Screen.unity
     guid: 7af68408d977817419d19296bd0ad087
   - enabled: 1
+    path: Assets/Scenes/Sandy Scene.unity
+    guid: 884fd5cd410a49c44aadcd9e71a97856
+  - enabled: 1
     path: Assets/Scenes/Richard Scene.unity
     guid: 64d71945fb96ee04db0a5c0f52236078
