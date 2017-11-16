@@ -142,8 +142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  movementSpeed: 5
+  movementSpeed: 7
   player: {fileID: 0}
-  hp: 0
-  rotationSpeed: 3
-  trackedMovementSpeed: 1
+  hp: 2
+  radius: 6
+  rotationSpeed: 210
+  trackedMovementSpeed: 1.5

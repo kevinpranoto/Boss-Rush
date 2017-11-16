@@ -10,6 +10,7 @@ public class BossOneController : BossController {
     public float setArrowHorizontalOffset;
     
     public Transform birdSpawn;
+    public int numberOfBirds;
 
     private Vector2 max;
     private Transform playerTrans;
@@ -38,6 +39,7 @@ public class BossOneController : BossController {
 
         while (health > 30.0f)
         {
+            
             phaseTwoPartOne();
             yield return new WaitForSeconds(phaseTwoPartTwoTime);
             phaseTwoPartTwo();
@@ -46,8 +48,12 @@ public class BossOneController : BossController {
 
         while (health > 0.0f)
         {
-            phaseThree();
-            yield return new WaitForSeconds(phaseTimes[2]);
+            print(playerTrans.childCount);
+            if (playerTrans.childCount <= numberOfBirds)
+            {
+                phaseThree();
+            }
+            yield return new WaitForSeconds(Random.Range(0.25f, phaseTimes[2]));
         }
     }
 

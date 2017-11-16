@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bird : Enemy {
     public float hp;
+    public float radius;
     public float rotationSpeed;
     public float trackedMovementSpeed = 1f;
 
@@ -24,7 +25,7 @@ public class Bird : Enemy {
 	void Update () {
         baseUpdate();        
 
-        if (Vector2.Distance(transform.position, player.transform.position) < 5.0f)
+        if (Vector2.Distance(transform.position, player.transform.position) < radius)
         {
             
             if (!tracked)
@@ -40,7 +41,7 @@ public class Bird : Enemy {
 
             transform.position = player.transform.position + pivot;*/
 
-            transform.RotateAround(transform.parent.transform.position, Vector3.forward, rotationSpeed);
+            transform.RotateAround(transform.parent.transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.identity;
         }
 
