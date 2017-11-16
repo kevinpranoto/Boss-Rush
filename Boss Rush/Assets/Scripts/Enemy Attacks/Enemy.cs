@@ -27,7 +27,7 @@ abstract public class Enemy : MonoBehaviour {
         }
     }   
 
-    public void OnBecameInvisible()
+    public virtual void OnBecameInvisible()
     {
         Destroy(gameObject);
     }

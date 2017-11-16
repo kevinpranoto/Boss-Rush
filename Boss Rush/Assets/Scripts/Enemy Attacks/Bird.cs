@@ -57,4 +57,9 @@ public class Bird : Enemy {
         }
     }
 
+    public override void OnBecameInvisible()
+    {
+        return;
+    }
+
 }
