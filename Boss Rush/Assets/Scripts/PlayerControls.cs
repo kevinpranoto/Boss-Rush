@@ -88,16 +88,20 @@ public class PlayerControls : MonoBehaviour {
         // Jumping, Floating, Gravity
         grounded = isGrounded();
 
-        if (!grounded && !fly)
-        {
-            rb2d.velocity = rb2d.velocity - new Vector2(0, fallSpeed);
-        }
+		if (!grounded && !fly)
+		{
+			rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
+		}
+		else if (!grounded && fly)
+		{
+			rb2d.velocity = rb2d.velocity - new Vector2(0, fallSpeed / 4);
+		}
         else
         {
             rb2d.velocity = Vector3.zero;
         }
 
-        if (Input.GetKey(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             //player.transform.position += transform.up * jumpStrength * Time.deltaTime;
             //rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
