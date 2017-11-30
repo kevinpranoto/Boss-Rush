@@ -7,6 +7,7 @@ public class RichardBullet : MonoBehaviour
     public int damage;
     public float movementSpeed;
     public bool up = false;
+	public bool down = false;
     public bool right = true;
     
     private float direction = 1f;
@@ -14,15 +15,24 @@ public class RichardBullet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (up)
-        {
-            transform.rotation = new Quaternion(0f, 0f, 1f, 1f);
-        }
+		if (up) 
+		{
+			transform.rotation = new Quaternion (0f, 0f, 1f, 1f);
+		}
+
+
         else
         {
             GetComponent<SpriteRenderer>().flipX = !right;
 
             direction = right ? 1f : -1f;
+
+			if (down) 
+			{
+				GetComponent<SpriteRenderer>().flipX = true;
+				transform.rotation = new Quaternion (0f, 0f, 1f, 1f);
+				direction = -1f;
+			}
         }
     }
 
