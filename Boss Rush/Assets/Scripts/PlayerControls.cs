@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour {
     public float setFlyTimer = 3f;
     public float setInvincibileTimer = 1f;
 	public float setFireTimer = 0.2f;
+	public float floatingNum = 4f;
 
     public LayerMask groundLayer;
     public LayerMask bossLayer;
@@ -53,95 +54,99 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-        // Movement
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            sprite.flipX = false;
-            //ChangeFirePos(1.5f);
-            facingRight = true;
-
-            move = new Vector3(1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
-
-            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision(1))
-            {
-                //rb2d.MovePosition(rb2d.position + move);
-                //transform.position += move;
-                transform.Translate(move);
-            }
-        }
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            sprite.flipX = true;
-            //ChangeFirePos(-1.5f);
-            facingRight = false;
-
-            move = new Vector3(-1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
-
-            if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision(-1))
-            {
-                //rb2d.MovePosition(rb2d.position + move);
-                //transform.position += move;
-                transform.Translate(move);
-            }
-        }
-
-        // Jumping, Floating, Gravity
-        grounded = isGrounded();
-
-		if (!grounded && !fly)
+		if (Time.timeScale != 0)
 		{
-			rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
-		}
-		else if (!grounded && fly)
-		{
-			rb2d.velocity = rb2d.velocity - new Vector2(0, fallSpeed / 4);
-		}
-        else
-        {
-            rb2d.velocity = Vector3.zero;
-        }
+			// Movement
+			if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow))
+			{
+				sprite.flipX = false;
+				//ChangeFirePos(1.5f);
+				facingRight = true;
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            //player.transform.position += transform.up * jumpStrength * Time.deltaTime;
-            //rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
-            rb2d.velocity = new Vector2(0, jumpStrength);
-        }
+				move = new Vector3 (1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
 
-        if (Input.GetKey(KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
-        {
-            fly = true;
-        }
-        else
-        {
-            fly = false;
-        }
+				if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision (1))
+				{
+					//rb2d.MovePosition(rb2d.position + move);
+					//transform.position += move;
+					transform.Translate (move);
+				}
+			}
 
-        if (fly)
-        {
-            flyTimer -= Time.deltaTime;
-        }
+			if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow))
+			{
+				sprite.flipX = true;
+				//ChangeFirePos(-1.5f);
+				facingRight = false;
 
-		if (!fire)
-		{
-			fireTimer -= Time.deltaTime;
-		}
+				move = new Vector3 (-1, 0, 0) * moveSpeed * Time.fixedDeltaTime;
 
-		if (!fire && fireTimer <= 0)
-		{
-			fire = true;
-			fireTimer = setFireTimer;
-		}
+				if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision (-1))
+				{
+					//rb2d.MovePosition(rb2d.position + move);
+					//transform.position += move;
+					transform.Translate (move);
+				}
+			}
+
+			// Jumping, Floating, Gravity
+			grounded = isGrounded ();
+
+			if (!grounded && !fly)
+			{
+				rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
+			}
+			else
+			if (!grounded && fly)
+			{
+				rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed / floatingNum);
+			}
+			else
+			{
+				rb2d.velocity = Vector3.zero;
+			}
+
+			if (Input.GetKeyDown (KeyCode.Space) && grounded)
+			{
+				//player.transform.position += transform.up * jumpStrength * Time.deltaTime;
+				//rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
+				rb2d.velocity = new Vector2 (0, jumpStrength);
+			}
+
+			if (Input.GetKey (KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
+			{
+				fly = true;
+			}
+			else
+			{
+				fly = false;
+			}
+
+			if (fly)
+			{
+				flyTimer -= Time.deltaTime;
+			}
+
+			if (!fire)
+			{
+				fireTimer -= Time.deltaTime;
+			}
+
+			if (!fire && fireTimer <= 0)
+			{
+				fire = true;
+				fireTimer = setFireTimer;
+			}
 			
-        // Firing
-		if (Input.GetKey(KeyCode.Z) && fire)
-        {
-            Fire();
-			fire = false;
-        }
+			// Firing
+			if (Input.GetKey (KeyCode.Z) && fire)
+			{
+				Fire ();
+				fire = false;
+			}
 
-        isInvincible();
+			isInvincible ();
+		}
     }
 
     void Fire()
