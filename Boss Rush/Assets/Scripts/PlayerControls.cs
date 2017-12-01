@@ -89,15 +89,20 @@ public class PlayerControls : MonoBehaviour {
 				}
 			}
 
-			// Jumping, Floating, Gravity
-			grounded = isGrounded ();
+            // Jumping, Floating, Gravity
+            // Going through ground because object not moving there
+			grounded = isGrounded();
+
+            if (grounded)
+            {
+                rb2d.velocity = Vector3.zero;
+            }
 
 			if (!grounded && !fly)
 			{
 				rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
 			}
-			else
-			if (!grounded && fly)
+			else if (!grounded && fly)
 			{
 				rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed / floatingNum);
 			}
@@ -106,7 +111,7 @@ public class PlayerControls : MonoBehaviour {
 				rb2d.velocity = Vector3.zero;
 			}
 
-			if (Input.GetKeyDown (KeyCode.Space) && grounded)
+			if (Input.GetKey (KeyCode.Space) && grounded)
 			{
 				//player.transform.position += transform.up * jumpStrength * Time.deltaTime;
 				//rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
@@ -161,6 +166,7 @@ public class PlayerControls : MonoBehaviour {
 
 		else if (!grounded && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
 		{
+            aimingUp = false;
 			aimingDown = true;
 			offset = new Vector3(0f, -1.1f, 0f);
 		}
