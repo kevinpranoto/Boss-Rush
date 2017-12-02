@@ -6,6 +6,7 @@ public class PlayerControls : MonoBehaviour {
     public float health;
 	public float moveSpeed = 7;
 	public float jumpStrength = 2;
+    public float setJumpTimer = 3f;
     public float fallSpeed = 0.1f;
     public float setFlyTimer = 3f;
     public float setInvincibileTimer = 1f;
@@ -24,12 +25,14 @@ public class PlayerControls : MonoBehaviour {
     private bool aimingUp = false;
 	private bool aimingDown = false;
     private bool grounded;
+    private float jumpTimer;
     private bool fly = false;
     private float flyTimer;
     private bool invicible = false;
     private float invincibleTimer;
 	private float fireTimer;
 	private bool fire = true;
+    private bool jumping = false;
 
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
@@ -50,10 +53,30 @@ public class PlayerControls : MonoBehaviour {
         min = Camera.main.ViewportToWorldPoint(new Vector2(0.04f, 0));
         max = Camera.main.ViewportToWorldPoint(new Vector2(0.96f, 1));
     }
-	
-	// Update is called once per frame
-	void Update () 
+
+    void FixedUpdate()
+    {
+        //grounded = isGrounded();
+
+        if (!grounded && !fly && !jumping)
+        {
+            //rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
+            transform.Translate(new Vector2(0, -fallSpeed) * Time.deltaTime);
+        }
+        else if (!grounded && fly && !jumping)
+        {
+            //rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed / floatingNum);
+        }
+        //else
+        //{
+        //rb2d.velocity = Vector3.zero;
+        //}
+    }
+
+    // Update is called once per frame
+    void Update () 
 	{
+        Debug.DrawRay(transform.position, Vector2.down * 0.8f);
 		if (Time.timeScale != 0)
 		{
 			// Movement
@@ -67,8 +90,8 @@ public class PlayerControls : MonoBehaviour {
 
 				if (transform.position.x + move.x <= max.x && transform.position.x + move.x >= min.x && !checkBossCollision (1))
 				{
-					//rb2d.MovePosition(rb2d.position + move);
-					//transform.position += move;
+                    //rb2d.MovePosition(rb2d.position + move);
+                    //transform.position += move;
 					transform.Translate (move);
 				}
 			}
@@ -91,35 +114,46 @@ public class PlayerControls : MonoBehaviour {
 
             // Jumping, Floating, Gravity
             // Going through ground because object not moving there
+            /*
 			grounded = isGrounded();
 
-            if (grounded)
-            {
-                rb2d.velocity = Vector3.zero;
-            }
+			if (!grounded && !fly && !jumping)
+			{
+                //rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
+                transform.Translate(new Vector2(0, -fallSpeed) * Time.deltaTime);
+			}
+			else if (!grounded && fly && !jumping)
+			{
+				//rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed / floatingNum);
+			}
+			//else
+			//{
+				//rb2d.velocity = Vector3.zero;
+			//}*/
 
-			if (!grounded && !fly)
-			{
-				rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed);
-			}
-			else if (!grounded && fly)
-			{
-				rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed / floatingNum);
-			}
-			else
-			{
-				rb2d.velocity = Vector3.zero;
-			}
-
-			if (Input.GetKey (KeyCode.Space) && grounded)
+			if (Input.GetKey(KeyCode.Space) && grounded && !jumping)
 			{
 				//player.transform.position += transform.up * jumpStrength * Time.deltaTime;
 				//rb2d.AddForce(new Vector2(0, 1) * jumpStrength * 100);
-				rb2d.velocity = new Vector2 (0, jumpStrength);
+				//rb2d.velocity = new Vector2 (0, jumpStrength);
+                //transform.Translate(new Vector2(0, jumpStrength) * Time.fixedDeltaTime);
+                jumping = true;
+                jumpTimer = setJumpTimer;
 			}
 
-			if (Input.GetKey (KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
-			{
+            if (jumping && jumpTimer > 0)
+            {
+                jumpTimer -= Time.deltaTime;
+                transform.Translate(new Vector2(0, jumpStrength) * Time.fixedDeltaTime);
+            }
+            else
+            {
+                jumping = false;
+            }
+
+            //if (Input.GetKey(KeyCode.Space) && !grounded && rb2d.velocity.y <= 0 && flyTimer > 0)
+            if (Input.GetKey(KeyCode.Space) && !grounded && !jumping && flyTimer > 0)
+            {
 				fly = true;
 			}
 			else
@@ -250,7 +284,7 @@ public class PlayerControls : MonoBehaviour {
             if (health <= 0)
             {
                 sprite.enabled = false;
-                rb2d.velocity = Vector2.zero;
+                //rb2d.velocity = Vector2.zero;
                 GetComponent<CapsuleCollider2D>().enabled = false;
                 GetComponent<PlayerControls>().enabled = false;
             }
@@ -260,5 +294,21 @@ public class PlayerControls : MonoBehaviour {
     public bool isPlayerDead()
     {
         return (health <= 0);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            grounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            grounded = false;
+        }
     }
 }
