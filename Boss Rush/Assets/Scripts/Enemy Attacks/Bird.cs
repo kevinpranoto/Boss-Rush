@@ -63,4 +63,13 @@ public class Bird : Enemy {
         return;
     }
 
+	public override void OnCollisionEnter2D(Collision2D hit)
+	{
+		if (hit.gameObject.CompareTag("Player"))
+		{
+			player.GetComponent<PlayerControls>().doDamage(damage);
+			Destroy(gameObject);
+		}
+	}  
+
 }

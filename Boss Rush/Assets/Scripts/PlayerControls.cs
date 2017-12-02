@@ -318,4 +318,9 @@ public class PlayerControls : MonoBehaviour {
 			flyTimer = setFlyTimer;
         }
     }
+
+	public bool isPlayerInvincible()
+	{
+		return invicible;
+	}
 }

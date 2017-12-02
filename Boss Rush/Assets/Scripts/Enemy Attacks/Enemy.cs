@@ -18,9 +18,9 @@ abstract public class Enemy : MonoBehaviour {
 
     }
 
-    public void OnCollisionEnter2D(Collision2D hit)
+    public virtual void OnCollisionEnter2D(Collision2D hit)
     {
-        if (hit.gameObject.CompareTag("Player"))
+		if (hit.gameObject.CompareTag("Player") && !player.GetComponent<PlayerControls>().isPlayerInvincible())
         {
             player.GetComponent<PlayerControls>().doDamage(damage);
             Destroy(gameObject);
