@@ -36,6 +36,7 @@ public class PlayerControls : MonoBehaviour {
 
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
+	private Animator anim;
 
     private Vector2 min;
     private Vector2 max;
@@ -49,6 +50,8 @@ public class PlayerControls : MonoBehaviour {
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+		anim = GetComponent<Animator> ();
+		flyTimer = setFlyTimer;
 		fireTimer = setFireTimer;
         min = Camera.main.ViewportToWorldPoint(new Vector2(0.04f, 0));
         max = Camera.main.ViewportToWorldPoint(new Vector2(0.96f, 1));
@@ -65,17 +68,15 @@ public class PlayerControls : MonoBehaviour {
         }
         else if (!grounded && fly && !jumping)
         {
+			
             //rb2d.velocity = rb2d.velocity - new Vector2 (0, fallSpeed / floatingNum);
         }
-        //else
-        //{
-        //rb2d.velocity = Vector3.zero;
-        //}
     }
 
     // Update is called once per frame
     void Update () 
 	{
+		print (fly);
         Debug.DrawRay(transform.position, Vector2.down * 0.8f);
 		if (Time.timeScale != 0)
 		{
@@ -164,6 +165,11 @@ public class PlayerControls : MonoBehaviour {
 			if (fly)
 			{
 				flyTimer -= Time.deltaTime;
+				anim.SetInteger ("State", 1);
+			}
+			else
+			{
+				anim.SetInteger ("State", 0);
 			}
 
 			if (!fire)
@@ -309,6 +315,7 @@ public class PlayerControls : MonoBehaviour {
         if (collision.gameObject.CompareTag("Ground"))
         {
             grounded = false;
+			flyTimer = setFlyTimer;
         }
     }
 }
