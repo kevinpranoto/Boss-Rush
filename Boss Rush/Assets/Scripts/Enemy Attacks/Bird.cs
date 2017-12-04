@@ -8,14 +8,12 @@ public class Bird : Enemy {
     public float rotationSpeed;
     public float trackedMovementSpeed = 1f;
 
-    //private Vector3 pivot;
     private bool tracked;
     private BoxCollider2D boxCollider;
 
 	// Use this for initialization
 	void Start () {
         baseStart();
-        //pivot = player.transform.position - transform.position;
         tracked = false;
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.enabled = false;
@@ -32,14 +30,9 @@ public class Bird : Enemy {
             {
                 movementSpeed = trackedMovementSpeed;
                 boxCollider.enabled = true;
-                //pivot = transform.position - player.transform.position;
                 transform.parent = player.transform;
                 tracked = true;
             }
-            /*
-            pivot = (Quaternion.AngleAxis(rotationSpeed * Time.deltaTime, Vector3.forward) * pivot);
-
-            transform.position = player.transform.position + pivot;*/
 
             transform.RotateAround(transform.parent.transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.identity;

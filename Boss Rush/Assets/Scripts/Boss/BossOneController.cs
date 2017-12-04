@@ -16,8 +16,6 @@ public class BossOneController : BossController {
     private Transform playerTrans;
     private float arrowHorizontalOffset;
 
-	//public float bulletDamage;
-
     // Use this for initialization
     void Start () {
         baseStart();
