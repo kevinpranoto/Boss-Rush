@@ -9,6 +9,8 @@ public class Arrow : Enemy {
     private bool moving;
 
 	private float rightBoundary = 4.8f;
+	private float leftBoundary = -8.7f;
+	private float shiftBy = 1.2f;
 
     // Use this for initialization
     void Start()
@@ -26,7 +28,13 @@ public class Arrow : Enemy {
 			Vector3 p = transform.position;
 			if (p.x > rightBoundary) 
 			{
-				p.x = rightBoundary - 1f;
+				p.x = rightBoundary - shiftBy;
+				transform.position = p;
+			}
+
+			if (p.x < leftBoundary) 
+			{
+				p.x = leftBoundary + shiftBy;
 				transform.position = p;
 			}
         }
