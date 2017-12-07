@@ -26,7 +26,7 @@ public class Arrow : Enemy {
 			Vector3 p = transform.position;
 			if (p.x > rightBoundary) 
 			{
-				p.x = rightBoundary - 0.8f;
+				p.x = rightBoundary - 1f;
 				transform.position = p;
 			}
         }
