@@ -10,13 +10,16 @@ public class Bird : Enemy {
 
     private bool tracked;
     private BoxCollider2D boxCollider;
+	private PolygonCollider2D polyCollider;
 
 	// Use this for initialization
 	void Start () {
         baseStart();
         tracked = false;
         boxCollider = GetComponent<BoxCollider2D>();
+		polyCollider = GetComponent<PolygonCollider2D> ();
         boxCollider.enabled = false;
+		polyCollider.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -29,7 +32,7 @@ public class Bird : Enemy {
             if (!tracked)
             {
                 movementSpeed = trackedMovementSpeed;
-                boxCollider.enabled = true;
+                polyCollider.enabled = true;
                 transform.parent = player.transform;
                 tracked = true;
             }
