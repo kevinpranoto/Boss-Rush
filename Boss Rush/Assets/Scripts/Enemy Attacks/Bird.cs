@@ -16,9 +16,7 @@ public class Bird : Enemy {
 	void Start () {
         baseStart();
         tracked = false;
-        boxCollider = GetComponent<BoxCollider2D>();
-		polyCollider = GetComponent<PolygonCollider2D> ();
-        boxCollider.enabled = false;
+		polyCollider = GetComponent<PolygonCollider2D>();
 		polyCollider.enabled = false;
     }
 	

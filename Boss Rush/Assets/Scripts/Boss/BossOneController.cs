@@ -46,7 +46,6 @@ public class BossOneController : BossController {
 
         while (health > 0.0f)
         {
-            print(playerTrans.childCount);
             if (playerTrans.childCount <= numberOfBirds)
             {
                 phaseThree();
