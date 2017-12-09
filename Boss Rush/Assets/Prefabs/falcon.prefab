@@ -23,10 +23,9 @@ GameObject:
   - component: {fileID: 60253674352127898}
   - component: {fileID: 50102351676325604}
   - component: {fileID: 114526874718166656}
-  - component: {fileID: 61742001819401438}
   m_Layer: 0
   m_Name: falcon
-  m_TagString: Untagged
+  m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +69,7 @@ PolygonCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1418669644595940}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -661,31 +660,6 @@ PolygonCollider2D:
       - {x: -4.213713, y: 11.998805}
       - {x: -4.2650995, y: 11.91316}
       - {x: -4.230842, y: 11.91316}
---- !u!61 &61742001819401438
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1418669644595940}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 35.079998, y: 33.35}
-    newSize: {x: 35.079998, y: 33.35}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 35.079998, y: 33.35}
-  m_EdgeRadius: 0
 --- !u!114 &114526874718166656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -702,8 +676,8 @@ MonoBehaviour:
   player: {fileID: 0}
   hp: 2
   radius: 6
-  rotationSpeed: 210
-  trackedMovementSpeed: 1.5
+  rotationSpeed: 200
+  trackedMovementSpeed: 1.35
 --- !u!212 &212918403607951974
 SpriteRenderer:
   m_ObjectHideFlags: 1

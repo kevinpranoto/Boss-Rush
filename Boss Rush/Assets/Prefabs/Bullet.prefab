@@ -100,8 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  movementSpeed: 10
+  movementSpeed: 12
   up: 0
+  down: 0
   right: 0
 --- !u!212 &212749741058476224
 SpriteRenderer:

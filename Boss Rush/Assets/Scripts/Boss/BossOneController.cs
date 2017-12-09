@@ -50,8 +50,9 @@ public class BossOneController : BossController {
             {
                 phaseThree();
             }
-            yield return new WaitForSeconds(Random.Range(0.25f, phaseTimes[2]));
-        }
+            //yield return new WaitForSeconds(Random.Range(0.75f, phaseTimes[2]));
+			yield return new WaitForSeconds(phaseTimes[2]);
+		}
     }
 
     void phaseOne()
